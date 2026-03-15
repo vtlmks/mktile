@@ -1,0 +1,3 @@
+[submodule "mkgui"]
+	path = mkgui
+	url = git@github.com:vtlmks/mkgui.git
