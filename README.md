@@ -5,8 +5,22 @@ A simple X11 window tiler. Select windows on your current workspace and tile the
 ## Dependencies
 
 - C99 compiler
-- GTK 3
+- FreeType2
 - libX11
+- libXext
+- libm (math)
+
+## Clone
+
+```sh
+git clone --recurse-submodules https://github.com/vtlmks/mktile.git
+```
+
+If you already cloned without submodules:
+
+```sh
+git submodule update --init --recursive
+```
 
 ## Build
 
