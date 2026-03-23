@@ -348,8 +348,7 @@ static void enumerate_windows(void) {
 	for(unsigned long i = 0; i < nitems && ts.win_count < MAX_WINDOWS; ++i) {
 		Window w = clients[i];
 
-		pid_t wpid = x11_get_window_pid(w);
-		if(wpid == ts.self_pid) {
+		if(x11_get_window_pid(w) == ts.self_pid) {
 			continue;
 		}
 
@@ -564,23 +563,23 @@ int32_t main(int32_t argc, char **argv) {
 	enumerate_windows();
 
 	struct mkgui_widget widgets[] = {
-		{ MKGUI_WINDOW,   ID_WINDOW,      "mktile",      "", 0,            0, 0, 420, 500, 0 },
-		{ MKGUI_VBOX,     ID_VBOX,        "",            "", ID_WINDOW,    0, 0, 0, 0, MKGUI_ANCHOR_LEFT | MKGUI_ANCHOR_TOP | MKGUI_ANCHOR_RIGHT | MKGUI_ANCHOR_BOTTOM },
-		{ MKGUI_LISTVIEW, ID_LISTVIEW,    "",            "", ID_VBOX,      0, 0, 0, 0, MKGUI_VIRTUAL },
-		{ MKGUI_HBOX,     ID_SEL_HBOX,    "",            "", ID_VBOX,      0, 0, 0, 28, 0 },
-		{ MKGUI_BUTTON,   ID_BTN_ALL,     "Select All",  "", ID_SEL_HBOX,  0, 0, 0, 0, 0 },
-		{ MKGUI_BUTTON,   ID_BTN_NONE,    "Deselect All","", ID_SEL_HBOX,  0, 0, 0, 0, 0 },
-		{ MKGUI_BUTTON,   ID_BTN_REFRESH, "Refresh",     "", ID_SEL_HBOX,  0, 0, 0, 0, 0 },
-		{ MKGUI_HBOX,     ID_TILE_HBOX,   "",            "", ID_VBOX,      0, 0, 0, 28, 0 },
-		{ MKGUI_BUTTON,   ID_BTN_TILE_V,  "Tile V",      "", ID_TILE_HBOX, 0, 0, 0, 0, 0 },
-		{ MKGUI_BUTTON,   ID_BTN_TILE_H,  "Tile H",      "", ID_TILE_HBOX, 0, 0, 0, 0, 0 },
-		{ MKGUI_BUTTON,   ID_BTN_UNDO,    "Undo",        "", ID_TILE_HBOX, 0, 0, 0, 0, 0 },
-		{ MKGUI_HBOX,     ID_GRID_HBOX,   "",            "", ID_VBOX,      0, 0, 0, 28, 0 },
-		{ MKGUI_LABEL,    ID_LBL_ROWS,    "Rows:",       "", ID_GRID_HBOX, 0, 0, 44, 0, 0 },
-		{ MKGUI_SPINBOX,  ID_SPN_ROWS,    "",            "", ID_GRID_HBOX, 0, 0, 70, 0, 0 },
-		{ MKGUI_LABEL,    ID_LBL_COLS,    "Cols:",       "", ID_GRID_HBOX, 0, 0, 44, 0, 0 },
-		{ MKGUI_SPINBOX,  ID_SPN_COLS,    "",            "", ID_GRID_HBOX, 0, 0, 70, 0, 0 },
-		{ MKGUI_BUTTON,   ID_BTN_GRID,    "Tile Grid",   "", ID_GRID_HBOX, 0, 0, 0, 0, 0 },
+		{ MKGUI_WINDOW,   ID_WINDOW,      "mktile",      "", 0,            0, 0, 420, 500, 0, 0 },
+		{ MKGUI_VBOX,     ID_VBOX,        "",            "", ID_WINDOW,    0, 0, 0, 0, MKGUI_ANCHOR_LEFT | MKGUI_ANCHOR_TOP | MKGUI_ANCHOR_RIGHT | MKGUI_ANCHOR_BOTTOM, 0 },
+		{ MKGUI_LISTVIEW, ID_LISTVIEW,    "",            "", ID_VBOX,      0, 0, 0, 0, 0, 1 },
+		{ MKGUI_HBOX,     ID_SEL_HBOX,    "",            "", ID_VBOX,      0, 0, 0, 28, MKGUI_FIXED, 0 },
+		{ MKGUI_BUTTON,   ID_BTN_ALL,     "Select All",  "", ID_SEL_HBOX,  0, 0, 0, 0, 0, 0 },
+		{ MKGUI_BUTTON,   ID_BTN_NONE,    "Deselect All","", ID_SEL_HBOX,  0, 0, 0, 0, 0, 0 },
+		{ MKGUI_BUTTON,   ID_BTN_REFRESH, "Refresh",     "", ID_SEL_HBOX,  0, 0, 0, 0, 0, 0 },
+		{ MKGUI_HBOX,     ID_TILE_HBOX,   "",            "", ID_VBOX,      0, 0, 0, 28, MKGUI_FIXED, 0 },
+		{ MKGUI_BUTTON,   ID_BTN_TILE_V,  "Tile V",      "", ID_TILE_HBOX, 0, 0, 0, 0, 0, 0 },
+		{ MKGUI_BUTTON,   ID_BTN_TILE_H,  "Tile H",      "", ID_TILE_HBOX, 0, 0, 0, 0, 0, 0 },
+		{ MKGUI_BUTTON,   ID_BTN_UNDO,    "Undo",        "", ID_TILE_HBOX, 0, 0, 0, 0, 0, 0 },
+		{ MKGUI_HBOX,     ID_GRID_HBOX,   "",            "", ID_VBOX,      0, 0, 0, 28, MKGUI_FIXED, 0 },
+		{ MKGUI_LABEL,    ID_LBL_ROWS,    "Rows:",       "", ID_GRID_HBOX, 0, 0, 44, 0, MKGUI_FIXED, 0 },
+		{ MKGUI_SPINBOX,  ID_SPN_ROWS,    "",            "", ID_GRID_HBOX, 0, 0, 70, 0, MKGUI_FIXED, 0 },
+		{ MKGUI_LABEL,    ID_LBL_COLS,    "Cols:",       "", ID_GRID_HBOX, 0, 0, 44, 0, MKGUI_FIXED, 0 },
+		{ MKGUI_SPINBOX,  ID_SPN_COLS,    "",            "", ID_GRID_HBOX, 0, 0, 70, 0, MKGUI_FIXED, 0 },
+		{ MKGUI_BUTTON,   ID_BTN_GRID,    "Tile Grid",   "", ID_GRID_HBOX, 0, 0, 0, 0, 0, 0 },
 	};
 	uint32_t widget_count = sizeof(widgets) / sizeof(widgets[0]);
 
@@ -682,6 +681,7 @@ int32_t main(int32_t argc, char **argv) {
 				} break;
 			}
 		}
+		mkgui_wait(ctx);
 	}
 
 	mkgui_destroy(ctx);
